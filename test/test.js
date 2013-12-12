@@ -261,6 +261,22 @@ describe('rbush', function () { 'use strict';
     });
 
     describe('remove', function () {
+
+        it('removes data that is not removed in ol.structs.RBush', function() {
+            var data = [
+                [0,0,1,1],[1,1,4,4],[2,2,3,3],[-5,-5,-4,-4],[-4,-4,-1,-1],
+                [-3,-3,-2,-2],[-3,-3,-2,-2],[-3,-3,-2,-2],[-3,-3,-2,-2],
+                [-3,-3,-2,-2],[-3,-3,-2,-2]
+            ];
+            var tree = rbush(4).load(data);
+            var i, ii;
+            for (i = 0, ii = data.length; i < ii; ++i) {
+              assert(tree.all().indexOf(data[i]) != -1);
+              tree.remove(data[i]);
+              assert(tree.all().indexOf(data[i]) == -1);
+            }
+        });
+
         it('removes items correctly', function () {
             var tree = rbush(4).load(data);
 
@@ -316,4 +332,5 @@ describe('rbush', function () { 'use strict';
                 .fromJSON(testTree);
         });
     });
+
 });
